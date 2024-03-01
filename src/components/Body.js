@@ -2,6 +2,7 @@ import Restro from "./Restro";
 import Shimmer from "./Shimmer";
 //import restaurantsList from '../utils/mockData';
 import { useEffect, useState } from "react";
+import {Link} from 'react-router-dom';
 
 const Body = () => {
 //let restaurants = restaurantsList;
@@ -46,7 +47,7 @@ const Body = () => {
 </div>
 <div className="menu">
     {
-        filteredRestaurants.map((restaurant) => <Restro key={restaurant?.info?.id} restaurantData={restaurant}/>)
+        filteredRestaurants.map((restaurant) => <Link to={"/restaurants/"+restaurant.info.id}><Restro key={restaurant?.info?.id} restaurantData={restaurant}/></Link>)
     }
 </div>
     </div>)
