@@ -5,9 +5,9 @@ const Restro = (restaurantData) => {
         return null; // or handle the case where restaurantData or info is undefined
     }
    const {cloudinaryImageId,name,cuisines,avgRating} = restaurantData?.restaurantData?.info;
-    return (<div className="restro-card">
+    return (<div className="restro-card w-[200px] bg-green-300 hover:shadow-xl">
         <img className="restro-logo" src={CDN_URL+cloudinaryImageId} alt="image"/>
-<h3>{name}</h3>
+<h3 className='font-bold'>{name}</h3>
 <h5 className="cuisines">{cuisines.join(',')}</h5>
 <h6>{avgRating} stars</h6>
     </div>);

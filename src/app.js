@@ -1,13 +1,16 @@
-import react from "react";
+import {lazy,Suspense} from "react";
 import  ReactDOM  from "react-dom/client";
 import {createBrowserRouter,RouterProvider,Outlet} from 'react-router-dom';
-import '../index.css';
+//import './index.css';
 import Header from "./components/Header";
 import Body from "./components/Body";
 import About from './components/About';
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestraurantMenu from "./components/RestaurantMenu";
+//import Grocery from "./components/Grocery";
+
+const Grocery = lazy(()=> import("./components/Grocery"));
 
 //const parent = react.createElement('div',{id:'parent'},'welcome to namaste react application');
 
@@ -43,6 +46,10 @@ children:[
     {
         path:'/contact',
         element:<Contact/>
+    },
+    {
+        path:'/grocery',
+        element:<Suspense fallback={<h1>Loading grocery page ....</h1>}><Grocery/></Suspense>
     },
     {
         path:'/restaurants/:resId',

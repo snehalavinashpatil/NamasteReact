@@ -3,6 +3,7 @@ import Shimmer from "./Shimmer";
 //import restaurantsList from '../utils/mockData';
 import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
 //let restaurants = restaurantsList;
@@ -25,29 +26,37 @@ const Body = () => {
     };
 
     //conditional rendering
-    if(restaurantsListData.length === 0){
+    const onlineStatus = useOnlineStatus();
+console.log(onlineStatus,'onlineStatus');
+    if(onlineStatus === false){
+        return <h1>You are offline.....</h1>
+    }
+
+    if(restaurantsListData.length === 0 ){
         <h1>Loading.....</h1>
         console.log('display Shimmer');
        return <Shimmer/>
     }
 
     return (<div className="body">
-<div className="Filter">
-    <div className="search">
-        <input type="text" className="search-text" value={searchText} onChange={(e)=>{setSearchText(e.target.value)}}/>
-        <button onClick={()=>{
+<div className="Filter flex">
+    <div className="search m-4 p-4">
+        <input type="text" className="search-text border-black" value={searchText} onChange={(e)=>{setSearchText(e.target.value)}}/>
+        <button className="p-3 bg-gray-600 " onClick={()=>{
             const filteredRestaurants = restaurantsListData.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
             setFilteredRestaurants(filteredRestaurants);
         }}>Search</button>
     </div>
-    <button className="filter-btn" onClick={()=>{
+    <div className="p-5 ">
+    <button className="filter-btn bg-orange-200 border-red-700" onClick={()=>{
         const filteredRestaurantsList = restaurantsListData.filter((res) => res.info.avgRating > 4);
         setRestaurantsList(filteredRestaurantsList);
     }}>Top Rated Restaurants</button>
+    </div>
 </div>
-<div className="menu">
+<div className="m-4 p-4 flex-wrap flex gap-20">
     {
-        filteredRestaurants.map((restaurant) => <Link to={"/restaurants/"+restaurant.info.id}><Restro key={restaurant?.info?.id} restaurantData={restaurant}/></Link>)
+        filteredRestaurants.map((restaurant) => <Link to={"/restaurants/"+restaurant.info.id}><Restro className="w-[250px]" key={restaurant?.info?.id} restaurantData={restaurant}/></Link>)
     }
 </div>
     </div>)
