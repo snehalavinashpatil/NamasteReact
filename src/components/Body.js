@@ -1,13 +1,17 @@
-import Restro from "./Restro";
+import Restro,{withVegLabal} from "./Restro";
 import Shimmer from "./Shimmer";
 //import restaurantsList from '../utils/mockData';
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import {Link} from 'react-router-dom';
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
 //let restaurants = restaurantsList;
 //console.log(restaurants,restaurantsList);
+
+const RestroWithVegLabal = withVegLabal(Restro);
+const {setUserName,loggedIn} = useContext(UserContext);
     const [restaurantsListData,setRestaurantsList] = useState([]);
     const [filteredRestaurants,setFilteredRestaurants] = useState([]);
 
@@ -52,11 +56,17 @@ console.log(onlineStatus,'onlineStatus');
         const filteredRestaurantsList = restaurantsListData.filter((res) => res.info.avgRating > 4);
         setRestaurantsList(filteredRestaurantsList);
     }}>Top Rated Restaurants</button>
+    <input onChange={(e)=>setUserName(e.target.value)} value={loggedIn}></input>
     </div>
-</div>
+</div>{console.log(filteredRestaurants)}
 <div className="m-4 p-4 flex-wrap flex gap-20">
     {
-        filteredRestaurants.map((restaurant) => <Link to={"/restaurants/"+restaurant.info.id}><Restro className="w-[250px]" key={restaurant?.info?.id} restaurantData={restaurant}/></Link>)
+        filteredRestaurants.map((restaurant) => <Link to={"/restaurants/"+restaurant.info.id}>
+            {
+                restaurant.info.veg ? <RestroWithVegLabal  key={restaurant?.info?.id} restaurantData={restaurant}/> :
+            <Restro className="w-[250px]" key={restaurant?.info?.id} restaurantData={restaurant}/>
+    }
+            </Link>)
     }
 </div>
     </div>)

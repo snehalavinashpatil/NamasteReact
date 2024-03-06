@@ -13,4 +13,17 @@ const Restro = (restaurantData) => {
     </div>);
 }
 
+//Higher order componet
+
+export const withVegLabal = (Restro) =>{
+    return (restaurantData) => {
+        return (
+            <div>
+                <label className='absolute bg-black text-white m-2 p-2 rounded-lg'>Veg</label>
+                <Restro {...restaurantData}/>
+            </div>
+        )
+    }
+}
+
 export default Restro;
