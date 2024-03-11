@@ -9,6 +9,9 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestraurantMenu from "./components/RestaurantMenu";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 //import Grocery from "./components/Grocery";
 
 const Grocery = lazy(()=> import("./components/Grocery"));
@@ -36,13 +39,14 @@ const AppLayout = () => {
         setUserName(data.name);
     },[]);
     return (
-        console.log(userName,'userName'),
+    <Provider store={appStore}>
     <UserContext.Provider value={{loggedIn:userName,setUserName}}>
     <div className="app-layout">
        <Header/>
        <Outlet/>
     </div>
     </UserContext.Provider>
+    </Provider>
     )
 };
 
@@ -61,6 +65,10 @@ children:[
     {
         path:'/contact',
         element:<Contact/>
+    },
+    {
+        path:'/cart',
+        element:<Cart/>
     },
     {
         path:'/grocery',
