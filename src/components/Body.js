@@ -23,7 +23,7 @@ const {setUserName,loggedIn} = useContext(UserContext);
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0522115&lng=72.900522&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
         const response = await data.json();
-        console.log(response.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+       // console.log(response.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
         //optional chaining
         setRestaurantsList(response.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     setFilteredRestaurants(response.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -31,14 +31,14 @@ const {setUserName,loggedIn} = useContext(UserContext);
 
     //conditional rendering
     const onlineStatus = useOnlineStatus();
-console.log(onlineStatus,'onlineStatus');
+//console.log(onlineStatus,'onlineStatus');
     if(onlineStatus === false){
         return <h1>You are offline.....</h1>
     }
 
     if(restaurantsListData.length === 0 ){
         <h1>Loading.....</h1>
-        console.log('display Shimmer');
+        //console.log('display Shimmer');
        return <Shimmer/>
     }
 
@@ -58,7 +58,7 @@ console.log(onlineStatus,'onlineStatus');
     }}>Top Rated Restaurants</button>
     <input onChange={(e)=>setUserName(e.target.value)} value={loggedIn}></input>
     </div>
-</div>{console.log(filteredRestaurants)}
+</div>
 <div className="m-4 p-4 flex-wrap flex gap-20">
     {
         filteredRestaurants.map((restaurant) => <Link to={"/restaurants/"+restaurant.info.id}>

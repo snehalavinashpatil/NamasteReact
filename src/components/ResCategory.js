@@ -7,7 +7,7 @@ const ResCategory = ({data,showItems,setShowIndex})=> {
    // const [showItems,setShowItems] = useState(false);
     const handleClick = ()=> {
         setShowIndex();
-       console.log('handleClick',showItems);
+       //console.log('handleClick',showItems);
         };
     //console.log(data);
     return data?.title ?  (
